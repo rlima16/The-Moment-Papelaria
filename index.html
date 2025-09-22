@@ -9,7 +9,7 @@
 <body>
   <header>
     <div class="logo">
-      <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxv4wyr8n9tid6@resize_w450_nl.webp" alt="Logo The Moment">
+      <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
       The Moment
     </div>
     <nav>
@@ -50,7 +50,7 @@
       <div class="pix-box">
           <h2>Pague com PIX para Finalizar</h2>
           <p>Seu pedido: <b id="order-id"></b></p>
-          <img id="pix-qrcode" src="https://raw.githubusercontent.com/rlima16/The-Moment-Papelaria/refs/heads/main/pix.png" alt="QR Code PIX">
+          <img id="pix-qrcode" src="\Users\rodri.NOTE_RODRIGO\OneDrive\Desktop\Site TM\images\pix.png" alt="QR Code PIX">
           
           <p>Ou use a chave (Copia e Cola):</p>
           <input type="text" value="themoment.2022.tatiane@gmail.com" id="pix-key" readonly>
@@ -67,7 +67,11 @@
       </div>
   </div>
 
+<div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
+</div>
+
   <script src="script.js"></script>
 </body>
-
 </html>
