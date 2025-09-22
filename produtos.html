@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos os Produtos - The Moment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+             <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
+                The Moment
+            </a>
+        </div>
+        <nav>
+            <a href="index.html">Página Inicial</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="index.html#contato">Contato</a>
+            <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <main class="produtos" style="margin-top: 0;">
+        <h1>Todos os Nossos Produtos</h1>
+        <div id="all-products-list" class="grid">
+            </div>
+    </main>
+    
+    <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
+    </div>
+
+    <script src="products-data.js"></script>
+    <script src="produtos-page.js"></script>
+</body>
+</html>
