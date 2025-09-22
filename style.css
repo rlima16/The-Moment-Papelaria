@@ -256,3 +256,85 @@ footer {
 .lightbox-close:hover {
   color: #bbb;
 }
+
+/* --- ESTILOS DA PÁGINA DO CARRINHO --- */
+.cart-page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff0f5;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cart-page-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#cart-page-summary table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+#cart-page-summary th, #cart-page-summary td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+#cart-page-summary th {
+    background-color: #fce4ec;
+}
+
+#cart-page-summary .total-row td {
+    font-size: 1.2em;
+    border-bottom: none;
+}
+
+.payment-methods {
+    text-align: center;
+}
+
+.payment-methods h3 {
+    margin-bottom: 20px;
+}
+
+.payment-methods .btn {
+    width: auto;
+    padding: 10px 30px;
+    margin: 0 10px;
+}
+
+/* Estilo para o botão de remover na página do carrinho */
+.remove-btn-page {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.remove-btn-page:hover {
+    background-color: #d32f2f; /* Vermelho mais escuro */
+}
+
+/* Container para o botão de continuar comprando */
+.cart-page-actions {
+    text-align: center;
+    margin: 20px 0;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* Estilo secundário para o botão (cor diferente) */
+.btn-secondary {
+    background-color: #6c757d; /* Um tom de cinza */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Cinza mais escuro ao passar o mouse */
+}
