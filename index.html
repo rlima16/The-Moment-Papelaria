@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Moment — Loja</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
   <header>
@@ -15,10 +16,19 @@
       </a>
     </div>
     <nav>
-      <a href="index.html">Página Inicial</a>
-      <a href="produtos.html">Produtos</a>
-      <a href="#contato">Contato</a>
-      <a href="#" onclick="toggleCart()">Carrinho (<span id="cart-count">0</span>)</a>
+        <div class="nav-links-main">
+            <a href="index.html">Página Inicial</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="#contato">Contato</a>
+            <a href="#" onclick="toggleCart()">Carrinho (<span id="cart-count">0</span>)</a>
+        </div>
+        <div class="nav-links-user">
+            <div id="user-nav-section">
+                <span id="user-info" class="hidden"></span>
+                <a href="#" id="auth-link" onclick="openAuthModal()">Login</a>
+                <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+            </div>
+        </div>
     </nav>
   </header>
 
@@ -35,8 +45,7 @@
 
   <footer id="contato">
     <p>The Moment</p>
-    <p>Alameda Imperador, 32 • São Paulo • CEP 04475-072</p>
-    <p>Email: themoment.2022.tatiane@gmail.com</p>
+    <p>Email: shop.themomentofficial@gmail.com</p>
   </footer>
 
   <div id="cart" class="cart hidden">
@@ -50,34 +59,39 @@
   </div>
   
   <div id="pix-instructions" class="hidden">
-      <div class="pix-box">
-          <h2>Pague com PIX para Finalizar</h2>
-          <p>Seu pedido: <b id="order-id"></b></p>
-          <p>Valor a pagar: <b id="pix-value"></b></p>
-          <img id="pix-qrcode" src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/pix.png?raw=true" alt="QR Code PIX">
-          
-          <p>Ou use a chave (Copia e Cola):</p>
-          <input type="text" value="themoment.2022.tatiane@gmail.com" id="pix-key" readonly>
-          <button onclick="copyPixKey()">Copiar Chave</button>
-          
-          <hr>
-          <h3>Instruções Finais</h3>
-          <p>1. Após fazer o pagamento, por favor, envie o <b>comprovante</b> e o <b>número do seu pedido</b> para:</p>
-          <p><b>E-mail:</b> themoment.2022.tatiane@gmail.com<br>
-             <b>WhatsApp:</b> (11) 99999-9999</p>
-          <p>2. Assim que recebermos a confirmação, seus arquivos serão enviados para o seu e-mail!</p>
-          
-          <button class="btn" onclick="backToStore()">Voltar para a Loja</button>
       </div>
-  </div>
 
   <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
+      </div>
+  
+  <div id="auth-modal" class="auth-modal hidden">
+    <div class="auth-box">
+        <span class="auth-close" onclick="closeAuthModal()">&times;</span>
+        <div id="login-view">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="E-mail" required>
+                <input type="password" id="login-password" placeholder="Senha" required>
+                <button type="submit" class="btn">Entrar</button>
+                <p id="login-error" class="error-message hidden"></p>
+            </form>
+            <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView()">Cadastre-se</a></p>
+        </div>
+        <div id="register-view" class="hidden">
+            <h2>Cadastre-se</h2>
+            <form id="register-form">
+                <input type="email" id="register-email" placeholder="E-mail" required>
+                <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required>
+                <button type="submit" class="btn">Criar Conta</button>
+                <p id="register-error" class="error-message hidden"></p>
+            </form>
+            <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView()">Faça Login</a></p>
+        </div>
+    </div>
   </div>
 
   <script src="products-data.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="firebase-auth.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
-
