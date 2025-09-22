@@ -1,8 +1,11 @@
-// Aguarda o carregamento completo da página para executar o script
+console.log("DEBUG: script.js - Arquivo foi lido pelo navegador.");
+
 window.onload = function() {
-    loadCartFromSession(); // Carrega o carrinho da memória
-    displayProducts();     // Mostra os produtos em destaque
-    updateCartDisplay();   // Atualiza a exibição do carrinho (contador e itens)
+    console.log("DEBUG: window.onload - A página inteira (incluindo imagens) terminou de carregar.");
+    loadCartFromSession();
+    displayProducts();
+    updateCartDisplay();
+    console.log("DEBUG: window.onload - Funções de inicialização foram chamadas.");
 };
 
 // -----------------------------------------------------------
@@ -10,17 +13,22 @@ window.onload = function() {
 // -----------------------------------------------------------
 let cart = [];
 
-// Carrega o carrinho salvo na memória do navegador
 function loadCartFromSession() {
+    console.log("DEBUG: loadCartFromSession - procurando carrinho na memória...");
     const cartData = sessionStorage.getItem('shoppingCart');
-    if (cartData) {
+    
+    // Este log é o mais importante de todos!
+    console.log("DEBUG: loadCartFromSession - Dados encontrados na memória:", cartData);
+
+    if (cartData && cartData !== '[]') {
         cart = JSON.parse(cartData);
+        console.log("DEBUG: loadCartFromSession - Carrinho foi populado com itens:", cart);
+    } else {
+        console.log("DEBUG: loadCartFromSession - Nenhum item encontrado na memória.");
     }
 }
 
-// Adiciona um produto ao carrinho
-function addToCart(productId) {
-    // A variável 'products' vem do arquivo 'products-data.js'
+window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);
     if (product) {
         cart.push(product);
@@ -29,19 +37,18 @@ function addToCart(productId) {
     }
 }
 
-// Remove um produto do carrinho
-function removeFromCart(itemIndex) {
+window.removeFromCart = function(itemIndex) {
     cart.splice(itemIndex, 1); 
     updateCartDisplay();
 }
 
-// Atualiza a exibição do carrinho (contador, lista de itens) e salva na memória
 function updateCartDisplay() {
+    console.log("DEBUG: updateCartDisplay - Função chamada. O carrinho atual tem " + cart.length + " itens.");
+    
     const cartItemsElement = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
     const cartCountElement = document.getElementById('cart-count');
     
-    // Limpa a lista de itens no carrinho flutuante
     if (cartItemsElement) {
         cartItemsElement.innerHTML = ''; 
         cart.forEach((item, index) => {
@@ -53,39 +60,34 @@ function updateCartDisplay() {
             cartItemsElement.appendChild(li);
         });
     }
-
-    // Calcula e mostra o total
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     if(cartTotalElement) {
         cartTotalElement.textContent = total.toFixed(2).replace('.', ',');
     }
-    
-    // Atualiza o contador no cabeçalho
     if(cartCountElement) {
         cartCountElement.textContent = cart.length;
     }
-
-    // Salva o estado atual do carrinho na memória do navegador
+    console.log("DEBUG: updateCartDisplay - Salvando " + cart.length + " itens na memória.");
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
 }
 
-// Mostra ou esconde o carrinho flutuante
-function toggleCart() {
+// ... O RESTO DAS FUNÇÕES CONTINUAM IGUAIS (toggleCart, displayProducts, checkouts, lightbox, etc) ...
+// (Não precisa colar o resto aqui, apenas substitua o arquivo inteiro como pedi)
+
+window.toggleCart = function() {
     const cartElement = document.getElementById('cart');
     cartElement.classList.toggle('hidden');
 }
 
-
 // -----------------------------------------------------------
-// EXIBIÇÃO DOS PRODUTOS EM DESTAQUE
+// EXIBIÇÃO DOS PRODUTOS
 // -----------------------------------------------------------
 function displayProducts() {
+    // ... (o conteúdo desta função continua o mesmo de antes)
     const productsList = document.getElementById('produtos-list');
+    if (!productsList) return;
     productsList.innerHTML = ''; 
-
-    // Filtra para pegar apenas os produtos com "featured: true"
     const featuredProducts = products.filter(product => product.featured === true);
-
     featuredProducts.forEach(product => {
         const priceFormatted = product.price.toFixed(2).replace('.', ',');
         const card = `
@@ -100,41 +102,31 @@ function displayProducts() {
     });
 }
 
-
 // -----------------------------------------------------------
 // CHECKOUTS
 // -----------------------------------------------------------
-
-// Checkout com PagBank
-function checkout() {
-    if (cart.length === 0) {
-        alert("Seu carrinho está vazio.");
-        return;
-    }
-
+window.checkout = function() {
+    // ... (o conteúdo desta função continua o mesmo de antes)
+    if (cart.length === 0) { alert("Seu carrinho está vazio."); return; }
     let form = document.createElement("form");
     form.method = "POST";
     form.action = "https://pagseguro.uol.com.br/v2/checkout/payment.html";
     form.target = "_blank";
-
     let emailInput = document.createElement("input");
     emailInput.type = "hidden";
     emailInput.name = "receiverEmail";
-    emailInput.value = "SEU_EMAIL_PAGBANK@EMAIL.COM";
+    emailInput.value = "shop.themomentofficial@gmail.com";
     form.appendChild(emailInput);
-    
     let currencyInput = document.createElement("input");
     currencyInput.type = "hidden";
     currencyInput.name = "currency";
     currencyInput.value = "BRL";
     form.appendChild(currencyInput);
-
     let charsetInput = document.createElement("input");
     charsetInput.type = "hidden";
     charsetInput.name = "charset";
     charsetInput.value = "UTF-8";
     form.appendChild(charsetInput);
-
     cart.forEach((item, index) => {
         let i = index + 1;
         let idInput = document.createElement("input");
@@ -158,39 +150,27 @@ function checkout() {
         quantityInput.value = 1;
         form.appendChild(quantityInput);
     });
-
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
 }
 
-// Checkout com PIX (Manual)
-function checkoutWithPix() {
-    if (cart.length === 0) {
-        alert("Seu carrinho está vazio.");
-        return;
-    }
-    
+window.checkoutWithPix = function() {
+    // ... (o conteúdo desta função continua o mesmo de antes)
+    if (cart.length === 0) { alert("Seu carrinho está vazio."); return; }
     const orderId = "TM-" + Date.now();
     document.getElementById('order-id').textContent = orderId;
-
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     document.getElementById('pix-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    
-    // Esconde as seções da página inicial
     document.querySelector('header').classList.add('hidden');
     document.querySelector('.hero').classList.add('hidden');
-    document.getElementById('destaques').classList.add('hidden'); // <-- CORRIGIDO AQUI
+    document.getElementById('destaques').classList.add('hidden');
     document.getElementById('contato').classList.add('hidden');
-    
-    // Mostra a janela de instruções do PIX
     document.getElementById('pix-instructions').classList.remove('hidden');
-    
-    // Garante que o carrinho lateral seja fechado
     document.getElementById('cart').classList.add('hidden');
 }
 
-function copyPixKey() {
+window.copyPixKey = function() {
     const pixKeyInput = document.getElementById('pix-key');
     pixKeyInput.select();
     pixKeyInput.setSelectionRange(0, 99999);
@@ -198,28 +178,25 @@ function copyPixKey() {
     alert("Chave PIX copiada!");
 }
 
-function backToStore() {
-    // Mostra as seções da página inicial novamente
+window.backToStore = function() {
     document.querySelector('header').classList.remove('hidden');
     document.querySelector('.hero').classList.remove('hidden');
-    document.getElementById('destaques').classList.remove('hidden'); // <-- LINHA CORRIGIDA
+    document.getElementById('destaques').classList.remove('hidden');
     document.getElementById('contato').classList.remove('hidden');
-
-    // Esconde a janela de instruções do PIX
     document.getElementById('pix-instructions').classList.add('hidden');
 }
 
 // -----------------------------------------------------------
-// LÓGICA DO LIGHTBOX DE IMAGEM
+// LÓGICA DO LIGHTBOX
 // -----------------------------------------------------------
-function openLightbox(imageUrl) {
+window.openLightbox = function(imageUrl) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     lightboxImg.src = imageUrl;
     lightbox.classList.remove('hidden');
 }
 
-function closeLightbox() {
+window.closeLightbox = function() {
     const lightbox = document.getElementById('lightbox');
     lightbox.classList.add('hidden');
 }
