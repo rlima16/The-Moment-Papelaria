@@ -16,22 +16,34 @@ header {
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 40px;
   font-weight: bold;
   display: flex;
   align-items: center;
 }
 
 .logo img {
-  height: 70px; /* Logo maior */
+  height: 140px; /* Logo maior */
   width: auto;
   margin-right: 10px;
 }
 
+/* Estilo principal para os "botões" do menu */
 nav a {
-  margin-left: 20px;
   text-decoration: none;
   color: #333;
+  font-size: 18px; /* Aumenta o tamanho da fonte */
+  font-weight: bold; /* Deixa o texto mais forte */
+  padding: 10px 15px; /* Adiciona espaçamento interno, criando o "botão" */
+  border-radius: 5px; /* Arredonda as bordas */
+  margin-left: 10px; /* Espaçamento entre os botões */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Efeito de transição suave */
+}
+
+/* Efeito ao passar o mouse por cima */
+nav a:hover {
+  background-color: #ff69b4; /* Cor rosa forte dos botões */
+  color: #fff; /* Texto fica branco para contrastar */
 }
 
 .hero {
