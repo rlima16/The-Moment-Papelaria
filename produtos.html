@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos os Produtos - The Moment</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <header>
@@ -15,25 +16,41 @@
             </a>
         </div>
         <nav>
-            <a href="index.html">Página Inicial</a>
-            <a href="produtos.html">Produtos</a>
-            <a href="index.html#contato">Contato</a>
-            <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
-        </nav>
+    <div class="nav-links-main">
+        <a href="index.html">Página Inicial</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="index.html#contato">Contato</a>
+        <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
+    </div>
+    <div class="nav-links-user">
+        <div id="user-nav-section">
+            <span id="user-info" class="hidden"></span>
+            <a href="#" id="auth-link" onclick="openAuthModal()">Login</a>
+            <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+        </div>
+    </div>
+</nav>
     </header>
 
-    <main class="produtos" style="margin-top: 0;">
+    <main class="produtos" style="margin-top: 0; min-height: 70vh;">
         <h1>Todos os Nossos Produtos</h1>
         <div id="all-products-list" class="grid">
             </div>
     </main>
     
+    <footer id="contato">
+        <p>The Moment</p>
+        <p>Email: shop.themomentofficial@gmail.com</p>
+    </footer>
+
     <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
-    </div>
+        </div>
+    
+    <div id="auth-modal" class="auth-modal hidden">
+      </div>
 
     <script src="products-data.js"></script>
+    <script type="module" src="firebase-auth.js"></script>
     <script src="produtos-page.js"></script>
 </body>
 </html>
