@@ -7,12 +7,36 @@ body {
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 30px;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  align-items: center;
+  /* ... */
+  background: #fff0f5; /* Fundo rosa claro para o cabeçalho */
+  /* ... */
+}
+
+.hero {
+  /* ... */
+  background: #fff0f5; /* Fundo rosa claro para o banner principal */
+  /* ... */
+}
+
+.produtos {
+  /* ... */
+  background: #fff0f5; /* Fundo rosa claro para a seção de produtos */
+  /* ... */
+}
+
+.card {
+  background: #fff0f5; /* Fundo rosa claro para os cards de produtos */
+  /* ... */
+}
+
+.cart {
+  background: #fff0f5; /* Fundo rosa claro para o carrinho */
+  /* ... */
+}
+
+.pix-box {
+  background: #fff0f5; /* Fundo rosa claro para a caixa de PIX */
+  /* ... */
 }
 
 .logo {
@@ -23,7 +47,7 @@ header {
 }
 
 .logo img {
-  height: 35px;
+  height: 70px; /* NOVO TAMANHO DO LOGO */
   width: auto;
   margin-right: 10px;
 }
@@ -201,4 +225,5 @@ footer {
 .pix-box button {
     width: auto;
     padding: 8px 15px;
+
 }
