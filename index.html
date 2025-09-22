@@ -9,11 +9,14 @@
 <body>
   <header>
     <div class="logo">
-      <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
-      The Moment
+      <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
+        The Moment
+      </a>
     </div>
     <nav>
-      <a href="#produtos">Produtos</a>
+      <a href="index.html">Página Inicial</a>
+      <a href="produtos.html">Produtos</a>
       <a href="#contato">Contato</a>
       <a href="#" onclick="toggleCart()">Carrinho (<span id="cart-count">0</span>)</a>
     </nav>
@@ -22,19 +25,18 @@
   <section class="hero">
     <h1>Arquivos de Corte para Silhouette</h1>
     <p>Explore nossa coleção de artes digitais e crie projetos incríveis de papelaria personalizada para festas e presentes.</p>
-    <a href="#produtos" class="btn">Ver produtos</a>
+    <a href="produtos.html" class="btn">Ver todos os produtos</a>
   </section>
 
-  <section id="produtos" class="produtos">
-    <h2>Nossos Produtos</h2>
+  <section id="destaques" class="produtos">
+    <h2>Destaques</h2>
     <div id="produtos-list" class="grid"></div>
   </section>
 
   <footer id="contato">
     <p>The Moment</p>
-    <p>Rua Exemplo, 123 • Cidade • CEP 00000-000</p>
-    <p>Email: contato@themoment.com</p>
-    <p>Horário: Seg — Sex: 9h — 18h</p>
+    <p>Alameda Imperador, 32 • São Paulo • CEP 04475-072</p>
+    <p>Email: themoment.2022.tatiane@gmail.com</p>
   </footer>
 
   <div id="cart" class="cart hidden">
@@ -42,6 +44,7 @@
     <h3>Seu Carrinho</h3>
     <ul id="cart-items"></ul>
     <p>Total: R$ <span id="cart-total">0,00</span></p>
+    <a href="carrinho.html" class="btn" style="background-color: #555; margin-bottom: 5px;">Ver Carrinho Completo</a>
     <button class="btn" onclick="checkoutWithPix()">Pagar com PIX</button>
     <button class="btn" onclick="checkout()">Pagar com PagBank</button>
   </div>
@@ -50,7 +53,8 @@
       <div class="pix-box">
           <h2>Pague com PIX para Finalizar</h2>
           <p>Seu pedido: <b id="order-id"></b></p>
-          <img id="pix-qrcode" src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/pix.png?raw=true" alt="QR Code PIX">
+          <p>Valor a pagar: <b id="pix-value"></b></p>
+          <img id="pix-qrcode" src="images/qrcode-pix.png" alt="QR Code PIX">
           
           <p>Ou use a chave (Copia e Cola):</p>
           <input type="text" value="themoment.2022.tatiane@gmail.com" id="pix-key" readonly>
@@ -59,7 +63,7 @@
           <hr>
           <h3>Instruções Finais</h3>
           <p>1. Após fazer o pagamento, por favor, envie o <b>comprovante</b> e o <b>número do seu pedido</b> para:</p>
-          <p><b>E-mail:</b> seu-email@exemplo.com<br>
+          <p><b>E-mail:</b> themoment.2022.tatiane@gmail.com<br>
              <b>WhatsApp:</b> (11) 99999-9999</p>
           <p>2. Assim que recebermos a confirmação, seus arquivos serão enviados para o seu e-mail!</p>
           
@@ -67,12 +71,12 @@
       </div>
   </div>
 
-<div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-  <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
-</div>
+  <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
+  </div>
 
+  <script src="products-data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-
