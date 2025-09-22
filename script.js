@@ -1,45 +1,26 @@
 // Aguarda o carregamento completo da página para executar o script
 window.onload = function() {
-    displayProducts();
-    updateCartDisplay();
+    loadCartFromSession(); // Carrega o carrinho da memória
+    displayProducts();     // Mostra os produtos em destaque
+    updateCartDisplay();   // Atualiza a exibição do carrinho (contador e itens)
 };
 
 // -----------------------------------------------------------
-// 1. LISTA DE PRODUTOS
-// -----------------------------------------------------------
-const products = [
-    {
-        id: 1,
-        image: 'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lx78228g7beed9.webp',
-        title: 'Topo de Bolo Magali Frutas',
-        price: 10.00
-    },
-    {
-        id: 2,
-        image: 'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxv4pqn3ddxb6e.webp',
-        title: 'Topo de Bolo Sonic',
-        price: 15.00
-    },
-    {
-        id: 3,
-        image: 'https://down-br.img.susercontent.com/file/br-11134207-7r98o-mdelcsilyh154c.webp',
-        title: 'Topo de Bolo O Poderoso Chefinho',
-        price: 10.90
-    },
-    {
-        id: 4,
-        image: 'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxv4wyr8kgomab.webp',
-        title: 'Topo de Bolo Turma da Monica Baloes',
-        price: 10.00
-    }
-];
-
-// -----------------------------------------------------------
-// 2. LÓGICA DO CARRINHO
+// LÓGICA DO CARRINHO
 // -----------------------------------------------------------
 let cart = [];
 
+// Carrega o carrinho salvo na memória do navegador
+function loadCartFromSession() {
+    const cartData = sessionStorage.getItem('shoppingCart');
+    if (cartData) {
+        cart = JSON.parse(cartData);
+    }
+}
+
+// Adiciona um produto ao carrinho
 function addToCart(productId) {
+    // A variável 'products' vem do arquivo 'products-data.js'
     const product = products.find(p => p.id === productId);
     if (product) {
         cart.push(product);
@@ -48,31 +29,47 @@ function addToCart(productId) {
     }
 }
 
+// Remove um produto do carrinho
 function removeFromCart(itemIndex) {
     cart.splice(itemIndex, 1); 
     updateCartDisplay();
 }
 
+// Atualiza a exibição do carrinho (contador, lista de itens) e salva na memória
 function updateCartDisplay() {
     const cartItemsElement = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
     const cartCountElement = document.getElementById('cart-count');
-    cartItemsElement.innerHTML = ''; 
+    
+    // Limpa a lista de itens no carrinho flutuante
+    if (cartItemsElement) {
+        cartItemsElement.innerHTML = ''; 
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${item.title} - R$ ${item.price.toFixed(2).replace('.',',')}
+                <span class="remove-item" onclick="removeFromCart(${index})">remover</span>
+            `;
+            cartItemsElement.appendChild(li);
+        });
+    }
 
-    cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            ${item.title} - R$ ${item.price.toFixed(2).replace('.',',')}
-            <span class="remove-item" onclick="removeFromCart(${index})">remover</span>
-        `;
-        cartItemsElement.appendChild(li);
-    });
-
+    // Calcula e mostra o total
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    cartTotalElement.textContent = total.toFixed(2).replace('.', ',');
-    cartCountElement.textContent = cart.length;
+    if(cartTotalElement) {
+        cartTotalElement.textContent = total.toFixed(2).replace('.', ',');
+    }
+    
+    // Atualiza o contador no cabeçalho
+    if(cartCountElement) {
+        cartCountElement.textContent = cart.length;
+    }
+
+    // Salva o estado atual do carrinho na memória do navegador
+    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
 }
 
+// Mostra ou esconde o carrinho flutuante
 function toggleCart() {
     const cartElement = document.getElementById('cart');
     cartElement.classList.toggle('hidden');
@@ -80,13 +77,16 @@ function toggleCart() {
 
 
 // -----------------------------------------------------------
-// 3. EXIBIÇÃO DOS PRODUTOS
+// EXIBIÇÃO DOS PRODUTOS EM DESTAQUE
 // -----------------------------------------------------------
 function displayProducts() {
     const productsList = document.getElementById('produtos-list');
     productsList.innerHTML = ''; 
 
-    products.forEach(product => {
+    // Filtra para pegar apenas os produtos com "featured: true"
+    const featuredProducts = products.filter(product => product.featured === true);
+
+    featuredProducts.forEach(product => {
         const priceFormatted = product.price.toFixed(2).replace('.', ',');
         const card = `
             <div class="card">
@@ -102,8 +102,10 @@ function displayProducts() {
 
 
 // -----------------------------------------------------------
-// 4. CHECKOUT COM PAGBANK
+// CHECKOUTS
 // -----------------------------------------------------------
+
+// Checkout com PagBank
 function checkout() {
     if (cart.length === 0) {
         alert("Seu carrinho está vazio.");
@@ -118,7 +120,7 @@ function checkout() {
     let emailInput = document.createElement("input");
     emailInput.type = "hidden";
     emailInput.name = "receiverEmail";
-    emailInput.value = "tatianesilvasantos@live.com";
+    emailInput.value = "SEU_EMAIL_PAGBANK@EMAIL.COM";
     form.appendChild(emailInput);
     
     let currencyInput = document.createElement("input");
@@ -162,10 +164,7 @@ function checkout() {
     document.body.removeChild(form);
 }
 
-
-// -----------------------------------------------------------
-// 5. LÓGICA DO CHECKOUT PIX (MANUAL)
-// -----------------------------------------------------------
+// Checkout com PIX (Manual)
 function checkoutWithPix() {
     if (cart.length === 0) {
         alert("Seu carrinho está vazio.");
@@ -174,14 +173,21 @@ function checkoutWithPix() {
     
     const orderId = "TM-" + Date.now();
     document.getElementById('order-id').textContent = orderId;
+
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById('pix-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
     
+    // Esconde as seções da página inicial
     document.querySelector('header').classList.add('hidden');
     document.querySelector('.hero').classList.add('hidden');
-    document.getElementById('produtos').classList.add('hidden');
+    document.getElementById('destaques').classList.add('hidden'); // <-- CORRIGIDO AQUI
     document.getElementById('contato').classList.add('hidden');
+    
+    // Mostra a janela de instruções do PIX
     document.getElementById('pix-instructions').classList.remove('hidden');
     
-    toggleCart();
+    // Garante que o carrinho lateral seja fechado
+    document.getElementById('cart').classList.add('hidden');
 }
 
 function copyPixKey() {
@@ -193,31 +199,27 @@ function copyPixKey() {
 }
 
 function backToStore() {
+    // Mostra as seções da página inicial novamente
     document.querySelector('header').classList.remove('hidden');
     document.querySelector('.hero').classList.remove('hidden');
-    document.getElementById('produtos').classList.remove('hidden');
+    document.getElementById('destaques').classList.remove('hidden'); // <-- LINHA CORRIGIDA
     document.getElementById('contato').classList.remove('hidden');
+
+    // Esconde a janela de instruções do PIX
     document.getElementById('pix-instructions').classList.add('hidden');
 }
 
 // -----------------------------------------------------------
-// 6. LÓGICA DO LIGHTBOX DE IMAGEM
+// LÓGICA DO LIGHTBOX DE IMAGEM
 // -----------------------------------------------------------
-
 function openLightbox(imageUrl) {
-  // Pega os elementos do lightbox no HTML
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  
-  // Define a imagem a ser mostrada
-  lightboxImg.src = imageUrl;
-  
-  // Mostra o lightbox
-  lightbox.classList.remove('hidden');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = imageUrl;
+    lightbox.classList.remove('hidden');
 }
 
 function closeLightbox() {
-  // Esconde o lightbox
-  const lightbox = document.getElementById('lightbox');
-  lightbox.classList.add('hidden');
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.add('hidden');
 }
