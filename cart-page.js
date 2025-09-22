@@ -1,31 +1,30 @@
-// Este script é executado assim que a página carrinho.html é carregada
+let cart = [];
+
 window.onload = function() {
     loadCartSummary();
 };
 
-let cart = []; // Variável para armazenar o carrinho nesta página
-const products = []; // Precisaremos dos produtos aqui também para o checkout
-
 function loadCartSummary() {
-    const cartSummaryContainer = document.getElementById('cart-page-summary');
+    const summaryContainer = document.getElementById('cart-page-summary');
+    const checkoutContainer = document.getElementById('checkout-container');
     const emptyCartMessage = document.querySelector('.cart-page-empty');
-
+    
     const cartData = sessionStorage.getItem('shoppingCart');
 
     if (cartData && JSON.parse(cartData).length > 0) {
         cart = JSON.parse(cartData);
         
-        let itemsHtml = '<table>';
-        itemsHtml += `
+        // ---- Constrói a tabela de resumo ----
+        let tableHtml = '<table>';
+        tableHtml += `
             <tr>
                 <th>Produto</th>
                 <th>Preço</th>
                 <th>Ação</th> 
             </tr>
         `;
-        
         cart.forEach((item, index) => {
-            itemsHtml += `
+            tableHtml += `
                 <tr>
                     <td>${item.title}</td>
                     <td>R$ ${item.price.toFixed(2).replace('.', ',')}</td>
@@ -35,74 +34,71 @@ function loadCartSummary() {
                 </tr>
             `;
         });
-        
         const total = cart.reduce((sum, item) => sum + item.price, 0);
-        
-        itemsHtml += `
+        tableHtml += `
             <tr class="total-row">
                 <td colspan="2"><b>Total</b></td>
                 <td><b>R$ ${total.toFixed(2).replace('.', ',')}</b></td>
             </tr>
-        </table>
-        `;
+        </table>`;
+        summaryContainer.innerHTML = tableHtml;
 
-        // 👇 BOTÃO ADICIONADO AQUI 👇
-        itemsHtml += `
-            <div class="cart-page-actions">
-                <a href="produtos.html" class="btn btn-secondary">Continuar Comprando</a>
-            </div>
-        `;
-
-        itemsHtml += `
-            <div class="payment-methods">
-                <h3>Escolha como pagar:</h3>
-                <button class="btn" onclick="checkoutWithPix()">Pagar com PIX</button>
-                <button class="btn" onclick="checkout()">Pagar com PagBank</button>
-            </div>
-        `;
-        
-        cartSummaryContainer.innerHTML = itemsHtml;
+        // ---- Mostra o container de checkout (formulário e botões) ----
+        checkoutContainer.classList.remove('hidden');
         emptyCartMessage.classList.add('hidden');
 
     } else {
-        cartSummaryContainer.classList.add('hidden');
+        // Mostra a mensagem de carrinho vazio
+        summaryContainer.classList.add('hidden');
+        checkoutContainer.classList.add('hidden');
         emptyCartMessage.classList.remove('hidden');
     }
 }
 
-function removeFromCart(itemIndex) {
-    // Remove o item da lista (array)
+window.removeFromCart = function(itemIndex) {
     cart.splice(itemIndex, 1);
-
-    // Salva o carrinho atualizado na memória do navegador
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
-
-    // Recarrega o resumo para mostrar a mudança
-    loadCartSummary();
+    loadCartSummary(); // Recarrega a página para mostrar a mudança
 }
 
-
-/// -----------------------------------------------------------
-// LÓGICA DO CHECKOUT PIX (MANUAL) - ADAPTADA PARA A PÁGINA DO CARRINHO
-// -----------------------------------------------------------
-function checkoutWithPix() {
-    if (cart.length === 0) {
-        alert("Seu carrinho está vazio.");
+window.sendOrderByWhatsApp = function() {
+    const form = document.getElementById('customer-form');
+    if (!form.checkValidity()) {
+        alert("Por favor, preencha todos os campos (Nome, E-mail, CPF).");
         return;
     }
 
-    // Gera um ID de pedido e define o valor total na janela do PIX
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const cpf = document.getElementById('cpf').value;
+    const orderId = "TM-" + Date.now();
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    let orderDescription = cart.map(item => `- ${item.title} (R$ ${item.price.toFixed(2).replace('.',',')})\n  Imagem: ${item.image}`).join('\n\n');
+
+    let message = `Olá! 👋 Gostaria de fazer o seguinte pedido:\n\n*Nº do Pedido:* ${orderId}\n\n*Cliente:* ${nome}\n*E-mail:* ${email}\n*CPF:* ${cpf}\n\n*Itens do Pedido:*\n${orderDescription}\n\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
+    const yourWhatsappNumber = "5511934165911";
+
+    const whatsappUrl = `https://wa.me/${yourWhatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
+    document.querySelector('.whatsapp-send-container').classList.add('hidden');
+    document.getElementById('payment-options-container').classList.remove('hidden');
+}
+
+// -----------------------------------------------------------
+// FUNÇÕES DE CHECKOUT E PAGAMENTO
+// -----------------------------------------------------------
+
+window.checkoutWithPix = function() {
+    if (cart.length === 0) return;
     const orderId = "TM-" + Date.now();
     document.getElementById('order-id').textContent = orderId;
-
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     document.getElementById('pix-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-
-    // Apenas mostra a janela de instruções do PIX
     document.getElementById('pix-instructions').classList.remove('hidden');
 }
 
-function copyPixKey() {
+window.copyPixKey = function() {
     const pixKeyInput = document.getElementById('pix-key');
     pixKeyInput.select();
     pixKeyInput.setSelectionRange(0, 99999);
@@ -110,16 +106,12 @@ function copyPixKey() {
     alert("Chave PIX copiada!");
 }
 
-function backToStore() {
-    // Nesta página, o botão apenas esconde a janela do PIX
+window.backToStore = function() {
     document.getElementById('pix-instructions').classList.add('hidden');
 }
 
-function checkout() {
-    if (cart.length === 0) {
-        alert("Seu carrinho está vazio.");
-        return;
-    }
+window.checkout = function() {
+    if (cart.length === 0) return;
     let form = document.createElement("form");
     form.method = "POST";
     form.action = "https://pagseguro.uol.com.br/v2/checkout/payment.html";
@@ -127,7 +119,7 @@ function checkout() {
     let emailInput = document.createElement("input");
     emailInput.type = "hidden";
     emailInput.name = "receiverEmail";
-    emailInput.value = "tatianesilvasantos@live.com";
+    emailInput.value = "shop.themomentofficial@gmail.com";
     form.appendChild(emailInput);
     let currencyInput = document.createElement("input");
     currencyInput.type = "hidden";
@@ -144,7 +136,7 @@ function checkout() {
         let idInput = document.createElement("input");
         idInput.type = "hidden";
         idInput.name = `itemId${i}`;
-        idInput.value = item.id || i; // Garante um ID
+        idInput.value = item.id || i;
         form.appendChild(idInput);
         let descInput = document.createElement("input");
         descInput.type = "hidden";
