@@ -90,7 +90,7 @@ function displayProducts() {
         const priceFormatted = product.price.toFixed(2).replace('.', ',');
         const card = `
             <div class="card">
-                <img src="${product.image}" alt="${product.title}">
+                <img src="${product.image}" alt="${product.title}" onclick="openLightbox('${product.image}')">
                 <h3>${product.title}</h3>
                 <p>R$ ${priceFormatted}</p>
                 <button class="btn" onclick="addToCart(${product.id})">Adicionar ao Carrinho</button>
@@ -198,4 +198,26 @@ function backToStore() {
     document.getElementById('produtos').classList.remove('hidden');
     document.getElementById('contato').classList.remove('hidden');
     document.getElementById('pix-instructions').classList.add('hidden');
+}
+
+// -----------------------------------------------------------
+// 6. LÓGICA DO LIGHTBOX DE IMAGEM
+// -----------------------------------------------------------
+
+function openLightbox(imageUrl) {
+  // Pega os elementos do lightbox no HTML
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  
+  // Define a imagem a ser mostrada
+  lightboxImg.src = imageUrl;
+  
+  // Mostra o lightbox
+  lightbox.classList.remove('hidden');
+}
+
+function closeLightbox() {
+  // Esconde o lightbox
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.add('hidden');
 }
