@@ -20,37 +20,36 @@
       </a>
     </div>
     <nav>
-      <a href="index.html" aria-current="page">Página Inicial</a>
+      <a href="index.html">Página Inicial</a>
       <a href="produtos.html">Produtos</a>
-      <a href="index.html#contato">Contato</a>
+      <a href="#contato">Contato</a>
     </nav>
     <div class="header-actions">
-      <a href="#" id="cart-link" onclick="toggleCart(); return false;">Carrinho (<span id="cart-count">0</span>)</a>
-      <div id="user-nav-section">
+    <a href="carrinho.html" id="cart-link">Carrinho (<span id="cart-count">0</span>)</a>
+    <div id="user-nav-section">
         <span id="user-info" class="hidden"></span>
-        <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal(); return false;">Login</a>
-        <a href="#" id="logout-link" class="hidden" onclick="logoutUser(); return false;">Sair</a>
-      </div>
+        <a href="minha-conta.html" id="my-account-link" class="hidden">Minha Conta</a>
+        <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal()">Login</a>
+        <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
     </div>
+</div>
   </header>
 
   <section class="hero">
     <div class="welcome-text">
-      <h1>✨ Bem-vindos à The Moment! ✨</h1>
-      <p>Há 7 anos, transformamos sonhos em detalhes únicos para deixar suas festas ainda mais especiais. Somos especialistas na criação de artes digitais exclusivas de topo de bolo e personalizados para festas, feitos com muito carinho e criatividade.</p>
-      <p>Além das artes digitais, também oferecemos topos de bolo físicos, disponíveis com toda praticidade através da nossa loja oficial na Shopee 🛒.</p>
-      <p>Na The Moment, cada detalhe é pensado para eternizar o seu momento de forma única e memorável. </p>
-      <p>👉 Conheça nossos produtos e descubra como podemos deixar sua celebração ainda mais incrível!</p>
+        <h1>✨ Bem-vindos à The Moment! ✨</h1>
+        <p>Há 7 anos, transformamos sonhos em detalhes únicos para deixar suas festas ainda mais especiais. Somos especialistas na criação de artes digitais exclusivas de topo de bolo e personalizados para festas, feitos com muito carinho e criatividade.</p>
+        <p>Além das artes digitais, também oferecemos topos de bolo físicos, disponíveis com toda praticidade através da nossa loja oficial na Shopee 🛒.</p>
+        <p>Na The Moment, cada detalhe é pensado para eternizar o seu momento de forma única e memorável. 🪄✨</p>
+        <p>👉 Conheça nossos produtos e descubra como podemos deixar sua celebração ainda mais incrível!</p>
     </div>
-    <a href="produtos.html" class="btn">Ver todos os produtos</a>
+    <a href="produtos.html" class="btn btn-hero">Ver todos os produtos</a>
   </section>
 
   <section id="carousel-section" class="produtos">
     <h2>Conheça Nossos Trabalhos</h2>
     <div class="swiper mySwiper">
-      <div class="swiper-wrapper" id="carousel-wrapper">
-        <!-- Slides do carrossel serão inseridos por script.js -->
-      </div>
+      <div class="swiper-wrapper" id="carousel-wrapper"></div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-pagination"></div>
@@ -59,23 +58,23 @@
 
   <section class="shopee-cta">
     <div class="cta-content">
-      <h2>Também temos Produtos Físicos! 🍰</h2>
-      <p>Procurando por topos de bolo e personalizados já prontos para receber em casa? Visite nossa loja oficial na Shopee para ver nossa coleção completa de produtos físicos, enviados para todo o Brasil!</p>
-      <a href="https://shopee.com.br/the_momentofc" target="_blank" class="btn btn-cta">Visite nossa Loja na Shopee</a>
-      <div class="shopee-gallery">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxtuoetly7w6c7.webp" alt="Topo de bolo físico Harry Potter" onclick="openLightbox('https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxtuoetly7w6c7.webp')">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-mcxx7mixlx6a5d.webp" alt="Topo de bolo físico Turma da Monica" onclick="openLightbox('https://down-br.img.susercontent.com/file/br-11134207-7r98o-mcxx7mixlx6a5d.webp')">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxu0w6xx129r7e.webp" alt="Topo de bolo físico Monstros S&A" onclick="openLightbox('https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxu0w6xx129r7e.webp')">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-81z1k-meacsisnzsw175.webp" alt="Topo de bolo físico Minions" onclick="openLightbox('https://down-br.img.susercontent.com/file/br-11134207-81z1k-meacsisnzsw175.webp')">
-</div>
+        <h2>Também temos Produtos Físicos! 🍰</h2>
+        <p>Procurando por topos de bolo e personalizados já prontos para receber em casa? Visite nossa loja oficial na Shopee para ver nossa coleção completa de produtos físicos, enviados para todo o Brasil!</p>
+        <a href="https://shopee.com.br/the_momentofc" target="_blank" class="btn btn-cta">Visite nossa Loja na Shopee</a>
+        <div class="shopee-gallery">
+            <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxtuoetly7w6c7.webp" alt="Topo de bolo físico Harry Potter" onclick="openLightbox(this.src)">
+            <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-mcxx7mixlx6a5d.webp" alt="Topo de bolo físico Turma da Monica" onclick="openLightbox(this.src)">
+            <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxu0w6xx129r7e.webp" alt="Topo de bolo físico Monstros S&A" onclick="openLightbox(this.src)">
+            <img src="https://down-br.img.susercontent.com/file/br-11134207-81z1k-meacsisnzsw175.webp" alt="Topo de bolo físico Minions" onclick="openLightbox(this.src)">
+        </div>
     </div>
   </section>
 
   <footer id="contato">
-    <p>The Moment</p>
-    <p>Email: shop.themomentofficial@gmail.com</p>
-    <p>Telefone: (11) 2050-4970</p>
-    <p>Atendimento: De Seg a Sex das 09 as 18 Hrs</p>
+      <p>The Moment</p>
+        <p>Email: shop.themomentofficial@gmail.com</p>
+        <p>Telefone: (11) 2050-4970</p>
+        <p>Atendimento: De Seg a Sex das 09 as 18 Hrs</p>
   </footer>
 
   <div id="cart" class="cart hidden">
@@ -88,36 +87,53 @@
     <button class="btn" onclick="checkout()">Pagar com PagBank</button>
   </div>
   
-  <div id="pix-instructions" class="hidden"></div>
+  <div id="pix-instructions" class="hidden">
+      <div class="pix-box">
+          <h2>Pague com PIX para Finalizar</h2>
+          <p>Seu pedido: <b id="order-id"></b></p>
+          <p>Valor a pagar: <b id="pix-value"></b></p>
+          <img id="pix-qrcode" src="images/qrcode-pix.png" alt="QR Code PIX">
+          <p>Ou use a chave (Copia e Cola):</p>
+          <input type="text" value="shop.themomentofficial@gmail.com" id="pix-key" readonly>
+          <button onclick="copyPixKey()">Copiar Chave</button>
+          <hr>
+          <h3>Instruções Finais</h3>
+          <p>1. Após fazer o pagamento, envie o <b>comprovante</b> e o <b>número do seu pedido</b> para:</p>
+          <p><b>E-mail:</b> shop.themomentofficial@gmail.com<br>
+             <b>WhatsApp:</b> 11934165911</p>
+          <p>2. Assim que recebermos a confirmação, seus arquivos serão enviados para o seu e-mail!</p>
+          <button class="btn" onclick="backToStore()">Fechar</button>
+      </div>
+  </div>
 
   <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-  <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
-</div>
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
+  </div>
   
   <div id="auth-modal" class="auth-modal hidden">
     <div class="auth-box">
-      <span class="auth-close" onclick="closeAuthModal()">&times;</span>
-      <div id="login-view">
-        <h2>Login</h2>
-        <form id="login-form" autocomplete="on">
-          <input type="email" id="login-email" placeholder="E-mail" required>
-          <input type="password" id="login-password" placeholder="Senha" required minlength="6">
-          <button type="submit" class="btn">Entrar</button>
-          <p id="login-error" class="error-message hidden"></p>
-        </form>
-        <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView(); return false;">Cadastre-se</a></p>
-      </div>
-      <div id="register-view" class="hidden">
-        <h2>Cadastre-se</h2>
-        <form id="register-form" autocomplete="on">
-          <input type="email" id="register-email" placeholder="E-mail" required>
-          <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required minlength="6">
-          <button type="submit" class="btn">Criar Conta</button>
-          <p id="register-error" class="error-message hidden"></p>
-        </form>
-        <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView(); return false;">Faça Login</a></p>
-      </div>
+        <span class="auth-close" onclick="closeAuthModal()">&times;</span>
+        <div id="login-view">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="E-mail" required>
+                <input type="password" id="login-password" placeholder="Senha" required>
+                <button type="submit" class="btn">Entrar</button>
+                <p id="login-error" class="error-message hidden"></p>
+            </form>
+            <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView()">Cadastre-se</a></p>
+        </div>
+        <div id="register-view" class="hidden">
+            <h2>Cadastre-se</h2>
+            <form id="register-form">
+                <input type="email" id="register-email" placeholder="E-mail" required>
+                <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required>
+                <button type="submit" class="btn">Criar Conta</button>
+                <p id="register-error" class="error-message hidden"></p>
+            </form>
+            <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView()">Faça Login</a></p>
+        </div>
     </div>
   </div>
 
