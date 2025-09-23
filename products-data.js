@@ -18,7 +18,7 @@ const products = [
         image: 'https://down-br.img.susercontent.com/file/br-11134207-7r98o-mdelcsilyh154c.webp',
         title: 'Topo de Bolo O Poderoso Chefinho',
         price: 10.90
-        // Sem "featured", não aparece na pág. inicial
+        // Sem "featured", não aparece na página inicial
     },
     {
         id: 4,
@@ -29,3 +29,5 @@ const products = [
     }
     // Adicione mais produtos aqui...
 ];
+
+// DICA: Sempre coloque uma vírgula (,) após o último item se for adicionar mais produtos para evitar erros de sintaxe!
