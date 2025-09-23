@@ -1,3 +1,11 @@
+// Adicione esta lista de imagens no topo do seu script.js
+const carouselImages = [
+    'https://down-bs-br.img.susercontent.com/br-11134210-7r98o-mbkd16ucq6bce5.webp',
+    'https://down-bs-br.img.susercontent.com/br-11134210-7r98o-mbkd16ucaq5e1a.webp',
+    'https://down-bs-br.img.susercontent.com/br-11134210-7r98o-mbkd16ucaq2g28.webp',
+    // Adicione quantos links de imagem você quiser aqui
+];
+
 console.log("DEBUG: script.js - Arquivo foi lido pelo navegador.");
 
 window.onload = function() {
@@ -82,23 +90,36 @@ window.toggleCart = function() {
 // -----------------------------------------------------------
 // EXIBIÇÃO DOS PRODUTOS
 // -----------------------------------------------------------
+// Esta função agora cria o carrossel em vez dos cards de destaque
 function displayProducts() {
-    // ... (o conteúdo desta função continua o mesmo de antes)
-    const productsList = document.getElementById('produtos-list');
-    if (!productsList) return;
-    productsList.innerHTML = ''; 
-    const featuredProducts = products.filter(product => product.featured === true);
-    featuredProducts.forEach(product => {
-        const priceFormatted = product.price.toFixed(2).replace('.', ',');
-        const card = `
-            <div class="card">
-                <img src="${product.image}" alt="${product.title}" onclick="openLightbox('${product.image}')">
-                <h3>${product.title}</h3>
-                <p>R$ ${priceFormatted}</p>
-                <button class="btn" onclick="addToCart(${product.id})">Adicionar ao Carrinho</button>
+    const carouselWrapper = document.getElementById('carousel-wrapper');
+    if (!carouselWrapper) return;
+
+    // Adiciona cada imagem da nossa lista ao carrossel
+    carouselImages.forEach(imageUrl => {
+        const slide = `
+            <div class="swiper-slide">
+                <img src="${imageUrl}" />
             </div>
         `;
-        productsList.innerHTML += card;
+        carouselWrapper.innerHTML += slide;
+    });
+
+    // Inicializa o Swiper com as opções desejadas
+    const swiper = new Swiper(".mySwiper", {
+        loop: true, // Faz o carrossel girar em loop
+        autoplay: {
+            delay: 3000, // Tempo em milissegundos (3 segundos)
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: { // Habilita as setas
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
     });
 }
 
@@ -200,3 +221,4 @@ window.closeLightbox = function() {
     const lightbox = document.getElementById('lightbox');
     lightbox.classList.add('hidden');
 }
+
