@@ -26,8 +26,8 @@
         <div class="header-actions">
             <div id="user-nav-section">
                 <span id="user-info" class="hidden"></span>
-                <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal(); return false;">Login</a>
-                <a href="#" id="logout-link" class="hidden" onclick="logoutUser(); return false;">Sair</a>
+                <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal()">Login</a>
+                <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
             </div>
         </div>
     </header>
@@ -77,49 +77,10 @@
     </main>
 
     <div id="pix-instructions" class="hidden">
-      <div class="pix-box">
-          <h2>Pague com PIX para Finalizar</h2>
-          <p>Seu pedido: <b id="order-id"></b></p>
-          <p>Valor a pagar: <b id="pix-value"></b></p>
-          <img id="pix-qrcode" src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/pix.png?raw=true" alt="QR Code PIX">
-          <p>Ou use a chave (Copia e Cola):</p>
-          <input type="text" value="shop.themomentofficial@gmail.com" id="pix-key" readonly>
-          <button onclick="copyPixKey()">Copiar Chave</button>
-          <hr>
-          <h3>Instruções Finais</h3>
-          <p>1. Após fazer o pagamento, envie o <b>comprovante</b> e o <b>número do seu pedido</b> para:</p>
-          <p><b>E-mail:</b> shop.themomentofficial@gmail.com<br>
-             <b>WhatsApp:</b> 11934165911</p>
-          <p>2. Assim que recebermos a confirmação, seus arquivos serão enviados para o seu e-mail!</p>
-          <button class="btn" onclick="backToStore()">Fechar</button>
       </div>
-    </div>
     
     <div id="auth-modal" class="auth-modal hidden">
-        <div class="auth-box">
-            <span class="auth-close" onclick="closeAuthModal()">&times;</span>
-            <div id="login-view">
-                <h2>Login</h2>
-                <form id="login-form" autocomplete="on">
-                    <input type="email" id="login-email" placeholder="E-mail" required>
-                    <input type="password" id="login-password" placeholder="Senha" required minlength="6">
-                    <button type="submit" class="btn">Entrar</button>
-                    <p id="login-error" class="error-message hidden"></p>
-                </form>
-                <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView(); return false;">Cadastre-se</a></p>
-            </div>
-            <div id="register-view" class="hidden">
-                <h2>Cadastre-se</h2>
-                <form id="register-form" autocomplete="on">
-                    <input type="email" id="register-email" placeholder="E-mail" required>
-                    <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required minlength="6">
-                    <button type="submit" class="btn">Criar Conta</button>
-                    <p id="register-error" class="error-message hidden"></p>
-                </form>
-                <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView(); return false;">Faça Login</a></p>
-            </div>
         </div>
-    </div>
     
     <footer id="contato">
         <p>The Moment</p>
@@ -128,6 +89,6 @@
 
     <script src="products-data.js"></script>
     <script type="module" src="firebase-auth.js"></script>
-    <script type="module" src="carrinho-page.js"></script>
+    <script type="module" src="cart-page.js"></script> 
 </body>
 </html>
