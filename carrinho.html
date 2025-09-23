@@ -6,29 +6,30 @@
     <title>Seu Carrinho - The Moment</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">
             <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
                 <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
-                The Moment
+                <span class="logo-text">The Moment</span>
             </a>
         </div>
         <nav>
-    <div class="nav-links-main">
-        <a href="index.html">Página Inicial</a>
-        <a href="produtos.html">Produtos</a>
-        <a href="index.html#contato">Contato</a>
-    </div>
-    <div class="nav-links-user">
-        <div id="user-nav-section">
-            <span id="user-info" class="hidden"></span>
-            <a href="#" id="auth-link" onclick="openAuthModal()">Login</a>
-            <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+             <a href="index.html">Página Inicial</a>
+             <a href="produtos.html">Produtos</a>
+             <a href="index.html#contato">Contato</a>
+        </nav>
+        <div class="header-actions">
+            <div id="user-nav-section">
+                <span id="user-info" class="hidden"></span>
+                <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal()">Login</a>
+                <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+            </div>
         </div>
-    </div>
-</nav>
     </header>
 
     <main class="cart-page-container" style="min-height: 70vh;">
@@ -56,7 +57,7 @@
             </form>
             <div class="whatsapp-send-container">
                 <button class="btn" onclick="sendOrderByWhatsApp()">
-                    <img src="https://static-00.iconduck.com/assets.00/whatsapp-icon-2048x2048-d226a27n.png" class="whatsapp-icon" alt="WhatsApp">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/029/204/552/small/phone-icon-3d-rendering-png.png" class="whatsapp-icon" alt="WhatsApp">
                     Enviar Pedido via WhatsApp
                 </button>
             </div>
@@ -77,10 +78,26 @@
     </main>
 
     <div id="pix-instructions" class="hidden">
+      <div class="pix-box">
+          <h2>Pague com PIX para Finalizar</h2>
+          <p>Seu pedido: <b id="order-id"></b></p>
+          <p>Valor a pagar: <b id="pix-value"></b></p>
+          <img id="pix-qrcode" src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/pix.png?raw=true" alt="QR Code PIX">
+          <p>Ou use a chave (Copia e Cola):</p>
+          <input type="text" value="shop.themomentofficial@gmail.com" id="pix-key" readonly>
+          <button onclick="copyPixKey()">Copiar Chave</button>
+          <hr>
+          <h3>Instruções Finais</h3>
+          <p>1. Após fazer o pagamento, envie o <b>comprovante</b> e o <b>número do seu pedido</b> para:</p>
+          <p><b>E-mail:</b> shop.themomentofficial@gmail.com<br>
+             <b>WhatsApp:</b> 11934165911</p>
+          <p>2. Assim que recebermos a confirmação, seus arquivos serão enviados para o seu e-mail!</p>
+          <button class="btn" onclick="backToStore()">Fechar</button>
       </div>
+    </div>
     
     <div id="auth-modal" class="auth-modal hidden">
-      </div>
+        </div>
     
     <footer id="contato">
         <p>The Moment</p>
