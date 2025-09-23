@@ -1,26 +1,27 @@
+import { auth, db, collection, addDoc, serverTimestamp } from './firebase-auth.js';
+
 let cart = [];
 
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', () => {
     loadCartSummary();
-};
+});
 
 function loadCartSummary() {
     const summaryContainer = document.getElementById('cart-page-summary');
     const checkoutContainer = document.getElementById('checkout-container');
     const emptyCartMessage = document.querySelector('.cart-page-empty');
-
+    
     const cartData = sessionStorage.getItem('shoppingCart');
 
     if (cartData && JSON.parse(cartData).length > 0) {
         cart = JSON.parse(cartData);
-
-        // ---- Constrói a tabela de resumo ----
+        
         let tableHtml = '<table>';
         tableHtml += `
             <tr>
                 <th>Produto</th>
                 <th>Preço</th>
-                <th>Ação</th>
+                <th>Ação</th> 
             </tr>
         `;
         cart.forEach((item, index) => {
@@ -42,15 +43,12 @@ function loadCartSummary() {
             </tr>
         </table>`;
         summaryContainer.innerHTML = tableHtml;
-
-        summaryContainer.classList.remove('hidden');
         checkoutContainer.classList.remove('hidden');
         emptyCartMessage.classList.add('hidden');
     } else {
-        // Mostra a mensagem de carrinho vazio
-        if (summaryContainer) summaryContainer.classList.add('hidden');
-        if (checkoutContainer) checkoutContainer.classList.add('hidden');
-        if (emptyCartMessage) emptyCartMessage.classList.remove('hidden');
+        summaryContainer.classList.add('hidden');
+        checkoutContainer.classList.add('hidden');
+        emptyCartMessage.classList.remove('hidden');
     }
 }
 
@@ -60,9 +58,16 @@ window.removeFromCart = function(itemIndex) {
     loadCartSummary();
 }
 
-window.sendOrderByWhatsApp = function() {
+window.sendOrderByWhatsApp = async function() {
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Você precisa estar logado para finalizar um pedido! Por favor, faça o login.");
+        window.openAuthModal();
+        return;
+    }
+
     const form = document.getElementById('customer-form');
-    if (!form || !form.checkValidity()) {
+    if (!form.checkValidity()) {
         alert("Por favor, preencha todos os campos (Nome, E-mail, CPF).");
         return;
     }
@@ -72,50 +77,41 @@ window.sendOrderByWhatsApp = function() {
     const cpf = document.getElementById('cpf').value;
     const orderId = "TM-" + Date.now();
     const total = cart.reduce((sum, item) => sum + Number(item.price), 0);
-    let orderDescription = cart.map(item => `- ${item.title} (R$ ${Number(item.price).toFixed(2).replace('.',',')})\n  Imagem: ${item.image}`).join('\n\n');
+    let orderDescription = cart.map(item => `- ${item.title} (R$ ${item.price.toFixed(2).replace('.',',')})\n  Imagem: ${item.image}`).join('\n\n');
 
-    let message = `Olá! 👋 Gostaria de fazer o seguinte pedido:\n\n*Nº do Pedido:* ${orderId}\n\n*Cliente:* ${nome}\n*E-mail:* ${email}\n*CPF:* ${cpf}\n\n*Itens do Pedido:*\n${orderDescription}\n\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
-    const yourWhatsappNumber = "5511934165911";
-
-    const whatsappUrl = `https://wa.me/${yourWhatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-
-    const whatsappSendContainer = document.querySelector('.whatsapp-send-container');
-    const paymentOptionsContainer = document.getElementById('payment-options-container');
-    if (whatsappSendContainer) whatsappSendContainer.classList.add('hidden');
-    if (paymentOptionsContainer) paymentOptionsContainer.classList.remove('hidden');
+    const orderData = { userId: user.uid, userName: nome, userEmail: email, userCpf: cpf, orderId: orderId, items: cart, total: total, status: "Aguardando Pagamento", createdAt: serverTimestamp() };
+    
+    try {
+        await addDoc(collection(db, "pedidos"), orderData);
+        let message = `Olá! 👋 Pedido Nº ${orderId} realizado...`; // Mensagem resumida
+        const whatsappUrl = `https://wa.me/5511934165911?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        document.querySelector('.whatsapp-send-container').classList.add('hidden');
+        document.getElementById('payment-options-container').classList.remove('hidden');
+    } catch (e) {
+        console.error("Erro ao salvar o pedido: ", e);
+        alert("Houve um erro ao registrar seu pedido. Tente novamente.");
+    }
 }
-
-// -----------------------------------------------------------
-// FUNÇÕES DE CHECKOUT E PAGAMENTO
-// -----------------------------------------------------------
 
 window.checkoutWithPix = function() {
     if (cart.length === 0) return;
     const orderId = "TM-" + Date.now();
-    const orderIdEl = document.getElementById('order-id');
-    const pixValueEl = document.getElementById('pix-value');
-    const pixInstructionsEl = document.getElementById('pix-instructions');
+    document.getElementById('order-id').textContent = orderId;
     const total = cart.reduce((sum, item) => sum + Number(item.price), 0);
-
-    if (orderIdEl) orderIdEl.textContent = orderId;
-    if (pixValueEl) pixValueEl.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    if (pixInstructionsEl) pixInstructionsEl.classList.remove('hidden');
+    document.getElementById('pix-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    document.getElementById('pix-instructions').classList.remove('hidden');
 }
 
 window.copyPixKey = function() {
     const pixKeyInput = document.getElementById('pix-key');
-    if (pixKeyInput) {
-        pixKeyInput.select();
-        pixKeyInput.setSelectionRange(0, 99999);
-        document.execCommand("copy");
-        alert("Chave PIX copiada!");
-    }
+    pixKeyInput.select();
+    document.execCommand("copy");
+    alert("Chave PIX copiada!");
 }
 
 window.backToStore = function() {
-    const pixInstructionsEl = document.getElementById('pix-instructions');
-    if (pixInstructionsEl) pixInstructionsEl.classList.add('hidden');
+    document.getElementById('pix-instructions').classList.add('hidden');
 }
 
 window.checkout = function() {
