@@ -1,8 +1,8 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
-  background: #fafafa; /* Fundo cinza claro para a página */
+  background: #fafafa;
   color: #333;
 }
 
@@ -10,46 +10,120 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 15px 30px;
-  background: #fff0f5; /* ROSA CLARO */
+  background: #fff0f5;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   align-items: center;
 }
 
 .logo {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: bold;
   display: flex;
   align-items: center;
 }
 
 .logo img {
-  height: 140px; /* Logo maior */
+  height: 140px;
   width: auto;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
-/* Estilo principal para os "botões" do menu */
+/* Links principais da navegação no centro */
+nav {
+    flex-grow: 1; /* Faz a navegação ocupar o espaço vago */
+    text-align: center; /* Centraliza os links dentro dela */
+}
+
 nav a {
   text-decoration: none;
   color: #333;
-  font-size: 18px; /* Aumenta o tamanho da fonte */
-  font-weight: bold; /* Deixa o texto mais forte */
-  padding: 10px 15px; /* Adiciona espaçamento interno, criando o "botão" */
-  border-radius: 5px; /* Arredonda as bordas */
-  margin-left: 10px; /* Espaçamento entre os botões */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Efeito de transição suave */
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
 }
 
-/* Efeito ao passar o mouse por cima */
 nav a:hover {
-  background-color: #ff69b4; /* Cor rosa forte dos botões */
-  color: #fff; /* Texto fica branco para contrastar */
+  background-color: #fce4ec;
+  color: #333;
+}
+
+/* Container para os botões da direita (Carrinho e Login) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Impede que os botões encolham */
+}
+
+/* Estilo para o link do carrinho */
+#cart-link {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+/* Estilo para a mensagem "Olá, usuário" e link "Sair" */
+#user-info {
+    color: #555;
+    margin-right: 15px;
+    white-space: nowrap;
+    font-size: 16px;
+}
+#logout-link {
+    color: #ff69b4;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Estilo de destaque para o botão de Login */
+.btn-login {
+    background-color: #333;
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 8px 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .hero {
   text-align: center;
   padding: 60px 20px;
-  background: #fff0f5; /* ROSA CLARO */
+  background: #fff0f5;
+}
+
+.welcome-text {
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.welcome-text h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.welcome-text p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
 }
 
 .btn {
@@ -66,10 +140,27 @@ nav a:hover {
   box-sizing: border-box;
 }
 
+.hero .btn {
+  width: auto;
+  padding: 8px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: transparent;
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero .btn:hover {
+  background-color: #ff69b4;
+  color: #fff;
+}
+
 .produtos {
   padding: 40px 20px;
   text-align: center;
-  background: #fff0f5; /* ROSA CLARO */
+  background: #fff0f5;
   margin-top: 40px;
 }
 
@@ -81,13 +172,14 @@ nav a:hover {
 }
 
 .card {
-  background: #fff; /* Deixando o card branco para contrastar com a seção rosa claro */
+  background: #fff;
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .card img {
+  cursor: pointer;
   max-width: 100%;
   border-radius: 10px;
 }
@@ -114,7 +206,7 @@ footer {
   right: 0;
   width: 300px;
   height: 100%;
-  background: #fff0f5; /* ROSA CLARO */
+  background: #fff0f5;
   box-shadow: -2px 0 5px rgba(0,0,0,0.2);
   padding: 50px 20px 20px 20px;
   overflow-y: auto;
@@ -440,11 +532,7 @@ footer {
 /* --- ESTILOS PARA O NOVO MENU DE NAVEGAÇÃO --- */
 
 /* Transforma a <nav> em um container flexível que empilha os itens verticalmente */
-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Alinha os dois grupos à direita */
-}
+
 
 /* Define que os links dentro de cada grupo ficarão lado a lado */
 .nav-links-main,
@@ -472,3 +560,154 @@ nav {
     margin-left: 10px;
 }
 
+/* --- ESTILOS PARA O CARROSSEL (SWIPER) --- */
+#carousel-section {
+    padding-bottom: 60px; /* Adiciona espaço extra para a paginação */
+}
+
+.swiper {
+    width: 100%;
+    height: 1000px; /* Você pode ajustar a altura do carrossel aqui */
+    margin: 20px auto;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem cobrir o slide sem distorcer */
+}
+
+/* Personalizando as setas e bolinhas com a cor do seu site */
+:root {
+    --swiper-navigation-color: #ff69b4;
+    --swiper-pagination-color: #ff69b4;
+}
+
+
+/* --- Estilo Sutil para o Botão Principal (Hero Section) --- */
+
+/* Estilo Sutil e Menor para o Botão Principal (Hero Section) */
+.hero .btn {
+  width: auto; /* Para o botão ter a largura do texto, e não 100% */
+  padding: 8px 30px; /* Menos altura, mais espaçamento nas laterais */
+  border-radius: 30px; /* Bordas bem mais arredondadas (efeito pílula) */
+  font-size: 16px; /* Fonte um pouco menor */
+  
+  /* Estilos que mantivemos de antes */
+  background-color: transparent;
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+.hero .btn:hover {
+  background-color: #ff69b4; /* Fundo preenche com rosa */
+  color: #fff; /* Texto fica branco */
+}
+
+/* --- ESTILOS PARA O TEXTO DE BOAS-VINDAS --- */
+
+.welcome-text {
+    max-width: 800px;
+    margin: 0 auto 30px auto; /* Centraliza e adiciona espaço antes do botão */
+}
+
+.welcome-text h1 {
+    font-family: 'Dancing Script', cursive; /* Usa a fonte cursiva */
+    font-size: 48px; /* Aumenta o tamanho do título */
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.welcome-text p {
+    font-family: 'Nunito', sans-serif; /* Garante a fonte arredondada */
+    font-size: 16px; /* Tamanho bom para leitura */
+    line-height: 1.7; /* Aumenta o espaçamento entre as linhas */
+    color: #555; /* Um cinza um pouco mais suave */
+}
+
+/* Estilo para o texto "The Moment" no logo */
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    margin-left: 5px; /* Adiciona um pequeno espaço após a imagem */
+}
+
+.shopee-cta {
+    background: #fce4ec; /* Fundo rosa forte para chamar a atenção */
+    color: #471a31; /* Texto branco para contrastar */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.shopee-cta .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.shopee-cta h2 {
+    font-family: 'Dancing Script', cursive; /* Mesma fonte do título de boas-vindas */
+    font-size: 42px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.shopee-cta p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Estilo especial para o botão da Shopee */
+.btn-cta {
+    background-color: #fff; /* Fundo branco */
+    color: #ff69b4; /* Texto rosa */
+    font-weight: bold;
+    padding: 12px 35px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-cta:hover {
+    background-color: #fff;
+    color: #ff69b4;
+    transform: translateY(-3px); /* Efeito de levantar o botão */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+/* --- ESTILOS PARA A GALERIA DA SHOPEE --- */
+
+.shopee-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.shopee-gallery img {
+    width: 250px; /* Define a LARGURA da imagem */
+    height: 250px; /* Define a ALTURA da imagem */
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+}
+
+.shopee-gallery img:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
