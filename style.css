@@ -1,3 +1,4 @@
+/* style.css COMPLETO E CORRIGIDO */
 body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
@@ -23,15 +24,19 @@ header {
 }
 
 .logo img {
-  height: 140px;
+  height: 140px; /* Tamanho ajustado */
   width: auto;
   margin-right: 15px;
 }
 
-/* Links principais da navegação no centro */
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    margin-left: 5px;
+}
+
 nav {
-    flex-grow: 1; /* Faz a navegação ocupar o espaço vago */
-    text-align: center; /* Centraliza os links dentro dela */
+    flex-grow: 1;
+    text-align: center;
 }
 
 nav a {
@@ -51,14 +56,12 @@ nav a:hover {
   color: #333;
 }
 
-/* Container para os botões da direita (Carrinho e Login) */
 .header-actions {
     display: flex;
     align-items: center;
-    flex-shrink: 0; /* Impede que os botões encolham */
+    flex-shrink: 0;
 }
 
-/* Estilo para o link do carrinho */
 #cart-link {
     font-weight: bold;
     color: #333;
@@ -68,7 +71,6 @@ nav a:hover {
     white-space: nowrap;
 }
 
-/* Estilo para a mensagem "Olá, usuário" e link "Sair" */
 #user-info {
     color: #555;
     margin-right: 15px;
@@ -82,7 +84,6 @@ nav a:hover {
     font-size: 16px;
 }
 
-/* Estilo de destaque para o botão de Login */
 .btn-login {
     background-color: #333;
     color: #fff !important;
