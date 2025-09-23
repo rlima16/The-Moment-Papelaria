@@ -6,30 +6,31 @@
     <title>Todos os Produtos - The Moment</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">
-             <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
-                The Moment
-            </a>
-        </div>
+  <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+    <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
+    <span class="logo-text">The Moment</span>
+  </a>
+</div>
         <nav>
-    <div class="nav-links-main">
-        <a href="index.html">Página Inicial</a>
-        <a href="produtos.html">Produtos</a>
-        <a href="index.html#contato">Contato</a>
-        <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
-    </div>
-    <div class="nav-links-user">
-        <div id="user-nav-section">
-            <span id="user-info" class="hidden"></span>
-            <a href="#" id="auth-link" onclick="openAuthModal()">Login</a>
-            <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+            <a href="index.html">Página Inicial</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="index.html#contato">Contato</a>
+        </nav>
+        <div class="header-actions">
+            <a href="carrinho.html" id="cart-link">Carrinho (<span id="cart-count">0</span>)</a>
+            <div id="user-nav-section">
+                <span id="user-info" class="hidden"></span>
+                <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal()">Login</a>
+                <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+            </div>
         </div>
-    </div>
-</nav>
     </header>
 
     <main class="produtos" style="margin-top: 0; min-height: 70vh;">
@@ -41,16 +42,43 @@
     <footer id="contato">
         <p>The Moment</p>
         <p>Email: shop.themomentofficial@gmail.com</p>
+        <p>Telefone: (11) 2050-4970</p>
+        <p>Atendimento: De Seg a Sex das 09 as 18 Hrs</p>
     </footer>
 
     <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-        </div>
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()">
+    </div>
     
     <div id="auth-modal" class="auth-modal hidden">
+      <div class="auth-box">
+        <span class="auth-close" onclick="closeAuthModal()">&times;</span>
+        <div id="login-view">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="E-mail" required>
+                <input type="password" id="login-password" placeholder="Senha" required>
+                <button type="submit" class="btn">Entrar</button>
+                <p id="login-error" class="error-message hidden"></p>
+            </form>
+            <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView()">Cadastre-se</a></p>
+        </div>
+        <div id="register-view" class="hidden">
+            <h2>Cadastre-se</h2>
+            <form id="register-form">
+                <input type="email" id="register-email" placeholder="E-mail" required>
+                <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required>
+                <button type="submit" class="btn">Criar Conta</button>
+                <p id="register-error" class="error-message hidden"></p>
+            </form>
+            <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView()">Faça Login</a></p>
+        </div>
       </div>
+    </div>
 
     <script src="products-data.js"></script>
     <script type="module" src="firebase-auth.js"></script>
-    <script src="produtos-page.js"></script>
+    <script type="module" src="produtos-page.js"></script>
 </body>
 </html>
