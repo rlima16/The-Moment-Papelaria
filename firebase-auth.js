@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
@@ -7,7 +8,7 @@ import {
     onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
-// Configuração do Firebase
+// Sua configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBhiNkiR7D_xI_W_2L2bLUG3gC1--HUn18",
     authDomain: "the-moment-b3e02.firebaseapp.com",
@@ -20,24 +21,27 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db, collection, addDoc, serverTimestamp };
 
 // --- GERENCIADOR DE ESTADO DO USUÁRIO ---
 onAuthStateChanged(auth, (user) => {
     const userInfo = document.getElementById('user-info');
     const authLink = document.getElementById('auth-link');
     const logoutLink = document.getElementById('logout-link');
+    const myAccountLink = document.getElementById('my-account-link');
 
     if (user) {
-        if (userInfo) {
-            userInfo.textContent = `Olá, ${user.email.split('@')[0]}`;
-            userInfo.classList.remove('hidden');
-        }
-        if (authLink) authLink.classList.add('hidden');
-        if (logoutLink) logoutLink.classList.remove('hidden');
+        if(userInfo) { userInfo.textContent = `Olá, ${user.email.split('@')[0]}`; userInfo.classList.remove('hidden'); }
+        if(authLink) authLink.classList.add('hidden');
+        if(logoutLink) logoutLink.classList.remove('hidden');
+        if(myAccountLink) myAccountLink.classList.remove('hidden');
     } else {
-        if (userInfo) userInfo.classList.add('hidden');
-        if (authLink) authLink.classList.remove('hidden');
-        if (logoutLink) logoutLink.classList.add('hidden');
+        if(userInfo) userInfo.classList.add('hidden');
+        if(authLink) authLink.classList.remove('hidden');
+        if(logoutLink) logoutLink.classList.add('hidden');
+        if(myAccountLink) myAccountLink.classList.add('hidden');
     }
 });
 
@@ -103,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.openAuthModal = function() {
     const authModal = document.getElementById('auth-modal');
     if (authModal) authModal.classList.remove('hidden');
-    showLoginView();
+    window.showLoginView();
 };
 
 window.closeAuthModal = function() {
@@ -130,3 +134,4 @@ window.showLoginView = function() {
 window.logoutUser = function() {
     signOut(auth).catch((error) => console.error("Erro no logout:", error));
 };
+// A CHAVE "}" EXTRA QUE ESTAVA AQUI FOI REMOVIDA
