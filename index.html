@@ -8,86 +8,74 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
     <div class="logo">
-  <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-    <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
-    <span class="logo-text">The Moment</span>
-  </a>
-</div>
-
-    <nav>
-        <a href="index.html">Página Inicial</a>
-        <a href="produtos.html">Produtos</a>
-        <a href="index.html#contato">Contato</a>
-    </nav>
-
-    <div class="header-actions">
-        <a href="#" id="cart-link" onclick="toggleCart()">
-        
-        <div id="user-nav-section">
-            <span id="user-info" class="hidden"></span>
-            <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal()">Login</a>
-            <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
-        </div>
+      <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <img src="https://github.com/rlima16/The-Moment-Papelaria/blob/main/transparent-Photoroom.png?raw=true" alt="Logo The Moment">
+        <span class="logo-text">The Moment</span>
+      </a>
     </div>
-</header>
+    <nav>
+      <a href="index.html" aria-current="page">Página Inicial</a>
+      <a href="produtos.html">Produtos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#" id="cart-link" onclick="toggleCart(); return false;">Carrinho (<span id="cart-count">0</span>)</a>
+      <div id="user-nav-section">
+        <span id="user-info" class="hidden"></span>
+        <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal(); return false;">Login</a>
+        <a href="#" id="logout-link" class="hidden" onclick="logoutUser(); return false;">Sair</a>
+      </div>
+    </div>
+  </header>
 
   <section class="hero">
     <div class="welcome-text">
-    <h1>✨ Bem-vindos à The Moment! ✨</h1>
-    
-    <p>Há 7 anos, transformamos sonhos em detalhes únicos para deixar suas festas ainda mais especiais. Somos especialistas na criação de artes digitais exclusivas de topo de bolo e personalizados para festas, feitos com muito carinho e criatividade.</p>
-    
-    <p>Além das artes digitais, também oferecemos topos de bolo físicos, disponíveis com toda praticidade através da nossa loja oficial na Shopee 🛒.</p>
-    
-    <p>Na The Moment, cada detalhe é pensado para eternizar o seu momento de forma única e memorável. </p>
-    
-    <p>👉 Conheça nossos produtos e descubra como podemos deixar sua celebração ainda mais incrível!</p>
-</div>
+      <h1>✨ Bem-vindos à The Moment! ✨</h1>
+      <p>Há 7 anos, transformamos sonhos em detalhes únicos para deixar suas festas ainda mais especiais. Somos especialistas na criação de artes digitais exclusivas de topo de bolo e personalizados para festas, feitos com muito carinho e criatividade.</p>
+      <p>Além das artes digitais, também oferecemos topos de bolo físicos, disponíveis com toda praticidade através da nossa loja oficial na Shopee 🛒.</p>
+      <p>Na The Moment, cada detalhe é pensado para eternizar o seu momento de forma única e memorável. </p>
+      <p>👉 Conheça nossos produtos e descubra como podemos deixar sua celebração ainda mais incrível!</p>
+    </div>
     <a href="produtos.html" class="btn">Ver todos os produtos</a>
-</section>
+  </section>
 
   <section id="carousel-section" class="produtos">
     <h2>Conheça Nossos Trabalhos</h2>
     <div class="swiper mySwiper">
-        <div class="swiper-wrapper" id="carousel-wrapper">
-            </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
+      <div class="swiper-wrapper" id="carousel-wrapper">
+        <!-- Slides do carrossel serão inseridos por script.js -->
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
     </div>
-</section>
+  </section>
 
-</section>
-
-    <section class="shopee-cta">
-        <div class="cta-content">
-            <h2>Também temos Produtos Físicos! 🍰</h2>
-            <p>Procurando por topos de bolo e personalizados já prontos para receber em casa? Visite nossa loja oficial na Shopee para ver nossa coleção completa de produtos físicos, enviados para todo o Brasil!</p>
-            <a href="https://shopee.com.br/the_momentofc" target="_blank" class="btn btn-cta">Visite nossa Loja na Shopee</a>
-            </a>
-
-<div class="shopee-gallery">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxtuoetly7w6c7.webp" alt="Topo de bolo físico Harry Potter">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-mcxx7mixlx6a5d.webp" alt="Topo de bolo físico Turma da Monica">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxu0w6xx129r7e.webp" alt="Topo de bolo físico Monstros S&A">
-    <img src="https://down-br.img.susercontent.com/file/br-11134207-81z1k-meacsisnzsw175.webp" alt="Topo de bolo físico Minios">
-</div>
-        </div>
-    </section>
-    <footer id="contato">
-
+  <section class="shopee-cta">
+    <div class="cta-content">
+      <h2>Também temos Produtos Físicos! 🍰</h2>
+      <p>Procurando por topos de bolo e personalizados já prontos para receber em casa? Visite nossa loja oficial na Shopee para ver nossa coleção completa de produtos físicos, enviados para todo o Brasil!</p>
+      <a href="https://shopee.com.br/the_momentofc" target="_blank" class="btn btn-cta">Visite nossa Loja na Shopee</a>
+      <div class="shopee-gallery">
+        <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxtuoetly7w6c7.webp" alt="Topo de bolo físico Harry Potter">
+        <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-mcxx7mixlx6a5d.webp" alt="Topo de bolo físico Turma da Monica">
+        <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lxu0w6xx129r7e.webp" alt="Topo de bolo físico Monstros S&A">
+        <img src="https://down-br.img.susercontent.com/file/br-11134207-81z1k-meacsisnzsw175.webp" alt="Topo de bolo físico Minions">
+      </div>
+    </div>
+  </section>
 
   <footer id="contato">
-        <p>The Moment</p>
-        <p>Email: shop.themomentofficial@gmail.com</p>
-        <p>Telefone: (11) 2050-4970</p>
-        <p>Atendimento: De Seg a Sex das 09 as 18 Hrs</p>
+    <p>The Moment</p>
+    <p>Email: shop.themomentofficial@gmail.com</p>
+    <p>Telefone: (11) 2050-4970</p>
+    <p>Atendimento: De Seg a Sex das 09 as 18 Hrs</p>
   </footer>
 
   <div id="cart" class="cart hidden">
@@ -100,35 +88,33 @@
     <button class="btn" onclick="checkout()">Pagar com PagBank</button>
   </div>
   
-  <div id="pix-instructions" class="hidden">
-      </div>
+  <div id="pix-instructions" class="hidden"></div>
 
-  <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-      </div>
+  <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()"></div>
   
   <div id="auth-modal" class="auth-modal hidden">
     <div class="auth-box">
-        <span class="auth-close" onclick="closeAuthModal()">&times;</span>
-        <div id="login-view">
-            <h2>Login</h2>
-            <form id="login-form">
-                <input type="email" id="login-email" placeholder="E-mail" required>
-                <input type="password" id="login-password" placeholder="Senha" required>
-                <button type="submit" class="btn">Entrar</button>
-                <p id="login-error" class="error-message hidden"></p>
-            </form>
-            <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView()">Cadastre-se</a></p>
-        </div>
-        <div id="register-view" class="hidden">
-            <h2>Cadastre-se</h2>
-            <form id="register-form">
-                <input type="email" id="register-email" placeholder="E-mail" required>
-                <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required>
-                <button type="submit" class="btn">Criar Conta</button>
-                <p id="register-error" class="error-message hidden"></p>
-            </form>
-            <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView()">Faça Login</a></p>
-        </div>
+      <span class="auth-close" onclick="closeAuthModal()">&times;</span>
+      <div id="login-view">
+        <h2>Login</h2>
+        <form id="login-form" autocomplete="on">
+          <input type="email" id="login-email" placeholder="E-mail" required>
+          <input type="password" id="login-password" placeholder="Senha" required minlength="6">
+          <button type="submit" class="btn">Entrar</button>
+          <p id="login-error" class="error-message hidden"></p>
+        </form>
+        <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView(); return false;">Cadastre-se</a></p>
+      </div>
+      <div id="register-view" class="hidden">
+        <h2>Cadastre-se</h2>
+        <form id="register-form" autocomplete="on">
+          <input type="email" id="register-email" placeholder="E-mail" required>
+          <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required minlength="6">
+          <button type="submit" class="btn">Criar Conta</button>
+          <p id="register-error" class="error-message hidden"></p>
+        </form>
+        <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView(); return false;">Faça Login</a></p>
+      </div>
     </div>
   </div>
 
