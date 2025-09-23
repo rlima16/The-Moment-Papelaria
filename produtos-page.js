@@ -1,7 +1,6 @@
-// VARIÁVEIS GLOBAIS
-let cart = []; // Inicia o carrinho
+// Este script agora é um módulo para consistência
+let cart = [];
 
-// FUNÇÕES DE INICIALIZAÇÃO DA PÁGINA
 window.onload = function() {
     loadCartFromSession();
     displayAllProducts();
@@ -12,10 +11,9 @@ function loadCartFromSession() {
     if (cartData) {
         cart = JSON.parse(cartData);
     }
-    updateCartCount(); // <-- ADICIONADO: Atualiza a contagem assim que o carrinho é carregado
+    updateCartCount();
 }
 
-// FUNÇÃO NOVA PARA ATUALIZAR O CONTADOR
 function updateCartCount() {
     const cartCountElement = document.getElementById('cart-count');
     if (cartCountElement) {
@@ -23,13 +21,11 @@ function updateCartCount() {
     }
 }
 
-// FUNÇÕES PRINCIPAIS DA PÁGINA
 function displayAllProducts() {
     const productsList = document.getElementById('all-products-list');
-    if (!productsList) return; // Segurança caso o elemento não exista
+    if (!productsList) return;
     productsList.innerHTML = '';
 
-    // A variável 'products' vem do arquivo 'products-data.js'
     products.forEach(product => {
         const priceFormatted = product.price.toFixed(2).replace('.', ',');
         const card = `
@@ -44,13 +40,12 @@ function displayAllProducts() {
     });
 }
 
-function addToCart(productId) {
-    // A variável 'products' vem do arquivo 'products-data.js'
+window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);
     if (product) {
         cart.push(product);
         saveCartToSession();
-        updateCartCount(); // <-- ADICIONADO: Atualiza a contagem ao adicionar um item
+        updateCartCount();
         alert(`"${product.title}" foi adicionado ao carrinho!`);
     }
 }
@@ -59,15 +54,19 @@ function saveCartToSession() {
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
 }
 
-// FUNÇÕES DO LIGHTBOX
-function openLightbox(imageUrl) {
+// 👇 FUNÇÕES DO LIGHTBOX CORRIGIDAS (adicionadas ao 'window') 👇
+window.openLightbox = function(imageUrl) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    lightboxImg.src = imageUrl;
-    lightbox.classList.remove('hidden');
+    if(lightbox && lightboxImg) {
+        lightboxImg.src = imageUrl;
+        lightbox.classList.remove('hidden');
+    }
 }
 
-function closeLightbox() {
+window.closeLightbox = function() {
     const lightbox = document.getElementById('lightbox');
-    lightbox.classList.add('hidden');
+    if(lightbox) {
+        lightbox.classList.add('hidden');
+    }
 }
