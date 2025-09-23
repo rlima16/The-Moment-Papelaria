@@ -31,3 +31,4 @@ const products = [
 ];
 
 // DICA: Sempre coloque uma vírgula (,) após o último item se for adicionar mais produtos para evitar erros de sintaxe!
+
