@@ -26,8 +26,8 @@
         <div class="header-actions">
             <div id="user-nav-section">
                 <span id="user-info" class="hidden"></span>
-                <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal()">Login</a>
-                <a href="#" id="logout-link" class="hidden" onclick="logoutUser()">Sair</a>
+                <a href="#" id="auth-link" class="btn-login" onclick="openAuthModal(); return false;">Login</a>
+                <a href="#" id="logout-link" class="hidden" onclick="logoutUser(); return false;">Sair</a>
             </div>
         </div>
     </header>
@@ -36,12 +36,11 @@
         <h1>Resumo do seu Pedido</h1>
         <a href="produtos.html" class="link-continuar-comprando">‹ Continuar Comprando</a>
         
-        <div id="cart-page-summary">
-            </div>
+        <div id="cart-page-summary"></div>
 
         <div id="checkout-container" class="hidden">
             <h2>Preencha seus Dados para Continuar</h2>
-            <form id="customer-form">
+            <form id="customer-form" autocomplete="on">
                 <div class="form-group">
                     <label for="nome">Nome Completo</label>
                     <input type="text" id="nome" name="Nome Completo" required>
@@ -97,7 +96,30 @@
     </div>
     
     <div id="auth-modal" class="auth-modal hidden">
+        <div class="auth-box">
+            <span class="auth-close" onclick="closeAuthModal()">&times;</span>
+            <div id="login-view">
+                <h2>Login</h2>
+                <form id="login-form" autocomplete="on">
+                    <input type="email" id="login-email" placeholder="E-mail" required>
+                    <input type="password" id="login-password" placeholder="Senha" required minlength="6">
+                    <button type="submit" class="btn">Entrar</button>
+                    <p id="login-error" class="error-message hidden"></p>
+                </form>
+                <p class="auth-switch">Não tem uma conta? <a href="#" onclick="showRegisterView(); return false;">Cadastre-se</a></p>
+            </div>
+            <div id="register-view" class="hidden">
+                <h2>Cadastre-se</h2>
+                <form id="register-form" autocomplete="on">
+                    <input type="email" id="register-email" placeholder="E-mail" required>
+                    <input type="password" id="register-password" placeholder="Senha (mínimo 6 caracteres)" required minlength="6">
+                    <button type="submit" class="btn">Criar Conta</button>
+                    <p id="register-error" class="error-message hidden"></p>
+                </form>
+                <p class="auth-switch">Já tem uma conta? <a href="#" onclick="showLoginView(); return false;">Faça Login</a></p>
+            </div>
         </div>
+    </div>
     
     <footer id="contato">
         <p>The Moment</p>
@@ -106,6 +128,6 @@
 
     <script src="products-data.js"></script>
     <script type="module" src="firebase-auth.js"></script>
-    <script type="module" src="cart-page.js"></script>
+    <script type="module" src="carrinho-page.js"></script>
 </body>
 </html>
